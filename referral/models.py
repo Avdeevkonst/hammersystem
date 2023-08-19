@@ -33,6 +33,7 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
         help_text="Укажите номер телефона в формате 79001005070.",
         unique=True,
         editable=False,
+        max_length=12,
     )
     invite_code = models.CharField(default="000000", max_length=6)
     activate_invite_code = models.BooleanField(default=False)
