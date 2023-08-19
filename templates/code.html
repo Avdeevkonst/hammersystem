@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Проверка кода</title>
+</head>
+<body>
+  <h1>Проверка кода</h1>
+  <form method="post" action="{% url 'check_code' %}">
+    {% csrf_token %}
+      <label>
+          <input type="text" name="code" placeholder="Введите код">
+      </label>
+      <button type="submit">Проверить код</button>
+  </form>
+</body>
+</html>
