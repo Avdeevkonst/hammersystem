@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 
 from referral.authenticate import PhoneAuthentication
 from referral.models import UserModel
-from referral.serializers import UserSerializer, ProfileSerializer
+from referral.serializers import ProfileSerializer, UserSerializer
 from referral.utils import (
     activate_invite_code,
     checking_phone,
@@ -76,7 +76,7 @@ class VerifyCodeView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
         return Response(
-            {"message": "user successfully sign in."},
+            {"message": "user successfully sign in.", "your id": user.id},
             status=status.HTTP_200_OK,
         )
 
@@ -86,18 +86,30 @@ class Profile(APIView):
     serializer_class = ProfileSerializer
 
     def get(self, request, pk):
-        user = UserModel.objects.get(pk=pk)
+        user = UserModel.objects.filter(pk=pk)
+        if not user:
+            return Response(
+                {"error": "This user does not exist"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         used_code = UserModel.objects.filter(user_activate_code=user.invite_code)
         phone_numbers = [user.phone for user in used_code]
         if len(phone_numbers) < 1:
             phone_numbers = "No one has entered your code yet."
         if user.activate_invite_code:
             user_activate_code_response = user.user_activate_code
-            return Response({
+            return Response(
+                {
+                    "phone_numbers": phone_numbers,
+                    "user_activate_code_response": user_activate_code_response,
+                },
+            )
+        return Response(
+            {
                 "phone_numbers": phone_numbers,
-                "user_activate_code_response": user_activate_code_response
-            })
-        return Response(phone_numbers)
+                "invite_code": user.invite_code,
+            },
+        )
 
     def post(self, request):
         return activate_invite_code(

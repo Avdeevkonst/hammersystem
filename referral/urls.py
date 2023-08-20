@@ -1,5 +1,6 @@
-from django.urls import include, path
-from referral.views import LoginView, VerifyCodeView, Profile, LogoutView
+from django.urls import path
+
+from referral.views import LoginView, LogoutView, Profile, VerifyCodeView
 
 urlpatterns = [
     path("login/", LoginView.as_view(), name="login"),

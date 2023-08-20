@@ -36,7 +36,7 @@ def activate_invite_code(request, invite_code):
     else:
         return Response(
             {"error": "You have already activated the invitation code."},
-            status=status.HTTP_400_BAD_REQUEST
+            status=status.HTTP_400_BAD_REQUEST,
         )
     return Response(
         {"message": "This invite code has been successfully verified"},
