@@ -27,7 +27,6 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -55,6 +54,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+ALLOWED_HOSTS = ['avdeev.pythonanywhere.com', 'localhost']
 
 CORS_ALLOW_CREDENTIALS = True
 
