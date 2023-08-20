@@ -81,6 +81,16 @@ WSGI_APPLICATION = "hammersystem.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.getenv("MYSQL_NAME"),
+#         'USER': os.getenv("MYSQL_USER"),
+#         'PASSWORD': os.getenv("MYSQL_PASS"),
+#         'HOST': os.getenv("MYSQL_HOST"),
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
